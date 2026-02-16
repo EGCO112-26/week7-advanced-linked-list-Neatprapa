@@ -2,16 +2,13 @@
 // Inserting and deleting nodes in a list
 #include <stdio.h>
 #include <stdlib.h>//อย่างอันนี้คือค้นหาที่ libary
-#include <string.h>
 #include "ll.h" //มันค้นหาคนละที่กันเลลยใช่ <> ไม่ได้
 /*startPtr อยู่ใน main SPtr อยู่ในฟังก์ชัน*/
 int main( void )
 { 
    LLPtr startPtr = NULL; // initially there are no nodes /*ตอนเริ่มต้นไม่มีnodeใดๆ*/
    unsigned int choice; // user's choice /*unsigned ไม่รับค่าลบ*/
-   int num; // char entered by user
-   char text[50];
-   int item;
+   int item; // char entered by user
 
    instructions(); // display the menu
    printf( "%s", "? " );
@@ -23,11 +20,10 @@ int main( void )
 
       switch ( choice ) { 
          case 1:
-            printf( "%s", "Enter id and name: " );
-            scanf( "%d %s", &num, text);
-            insert( &startPtr, num, text); // insert item in list
+            printf( "%s", "Enter a number: " );
+            scanf( "%d", &item );
+            insert( &startPtr, item ); // insert item in list
             printList( startPtr );
-            printListR( startPtr ); /*ไม่จำเป็นต้องส่ง address เพราะมันแแค่ปริ้นเฉยๆ*/
             break;
          case 2: // delete an element
          /*check is it empty?--> if it's not empty ask the number --> delete that number --> show the list of number*/
@@ -38,12 +34,11 @@ int main( void )
 
                // if character is found, remove it
                if ( deletes( &startPtr, item ) ) { // remove item
-                  printf( "%d deleted.\n", item );/*delete success*/
+                  printf( "%d deleted.\n", item );
                   printList( startPtr );
-                  printListR( startPtr ); //ตรง result ให้ปริ้นเลขเป็น reverse
                } // end if
                else {
-                  printf( "%d not found.\n\n", item ); /*delete not success*/
+                  printf( "%d not found.\n\n", item );
                } // end else
             } // end if
             else {
@@ -61,12 +56,5 @@ int main( void )
       scanf( "%u", &choice );
    } // end while
   /* Clear all nodes at the end of nodes*/
-  if(!isEmpty(startPtr)){
-   puts("Clear all nodes");
-   while(!isEmpty(startPtr)){
-      int delete_value=deletes(&startPtr, startPtr->id);
-      printf("delete %d\n",delete_value);
-   }
-  }
-   puts( "End of run" );
+   puts( "End of run." );
 } // end main
